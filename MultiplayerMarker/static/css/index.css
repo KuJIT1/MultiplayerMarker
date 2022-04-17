@@ -1,0 +1,55 @@
+﻿svg {
+    border: 1px solid;
+}
+
+body {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+input {
+    width: 300px;
+}
+
+/* every icon style */
+svg g.current-user g.mark {
+    cursor: pointer;
+}
+
+svg g.wayfarer[visible="false"] {
+    display: none;
+}
+
+svg g.wayfarer[visible="true"] {
+    display: block;
+}
+
+/* acctionlist*/
+
+.action-list table th .th-container {
+    cursor: pointer;
+    display: flex;
+}
+
+.action-list table th .icon {
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+}
+
+.action-list table th[coltype="index"] {
+    cursor: default;
+}
+
+.action-list table th[sortby] .icon {
+    display: block;
+
+}
+
+.action-list table th[sortby="-1"] .icon {
+    background: url(/pictures/up-arrow-svgrepo-com.svg);
+}
+
+.action-list table th[sortby="1"] .icon {
+    background: url(/pictures/down-arrow-svgrepo-com.svg);
+}

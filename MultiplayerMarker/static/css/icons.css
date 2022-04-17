@@ -1,0 +1,9 @@
+﻿/* icons style */
+svg g.icon-mark-1 .a {
+    fill: none;
+    stroke: #000;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5px;
+    fill-rule: evenodd;
+}

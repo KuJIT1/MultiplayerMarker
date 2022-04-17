@@ -1,0 +1,65 @@
+﻿@using MultiplayerMarker.DbModel
+@using System.Text.Json
+@{
+    UserActionDbLog[] actionList = (UserActionDbLog[])ViewData["ActionList"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/css/index.css ">
+<link rel="stylesheet" href="/css/icons.css ">
+<script src="/js/lib/d3.v7.min.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/lib/signalr.min.js"></script>
+<script>
+    window.AppActionList = @Html.Raw(JsonSerializer.Serialize(actionList));
+</script>
+</head>
+<body>
+    <div class="inputs">
+        <label for="name">name</label>
+        <input id="name" type="text"/>
+        <button id="send-name-button">Присоединиться</button>
+        <button id="clear-marks-button" disabled>Очистить метки</button>
+        <button id="export-button" disabled>Экспорт</button>
+        <input id="file-input" disabled type="file" />
+        <button id="import-button" disabled>Импорт</button>
+    </div>
+    <div class="svg-container">
+        <svg viewBox="0 0 1000 1000" width="500" height="500"></svg>
+        <div class="action-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th coltype="index"><div class="th-container">№<div class="icon"></div></div></th>
+                        <th coltype="DateTime"><div class="th-container">Время<div class="icon"></div></div></th>
+                        <th coltype="UserName"><div class="th-container">Имя пользователя<div class="icon"></div></div></th>
+                        <th coltype="ActionType"><div class="th-container">Тип действия<div class="icon"></div></div></th>
+                        <th coltype="X"><div class="th-container">X<div class="icon"></div></div></th>
+                        <th coltype="Y"><div class="th-container">Y<div class="icon"></div></div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Это тут на самом деле не нужно, может запришваться с клиента сразу -->
+                    @for(var i = 0; i < actionList.Length; i++)
+                    {
+                        <tr>
+                            <td coltype="index">@(i + 1)</td>
+                            <td coltype="DateTime">@actionList[i].DateTime.ToString("dd.MM.yyyy, HH.mm.ss")</td>
+                            <td coltype="UserName">@actionList[i].UserName</td>
+                            <td colspan="@(actionList[i].ActionType == UserActionType.ClearMarks ? 3: 1)" coltype="ActionType">@actionList[i].ActionType</td>
+                            @if (actionList[i].ActionType != UserActionType.ClearMarks)
+                            {
+                            <td coltype="X">@actionList[i].X</td>
+                            <td coltype="Y">@actionList[i].Y</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>
