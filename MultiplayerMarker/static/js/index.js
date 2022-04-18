@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", main);
 const Application = {
 	actionList: [],
 	actionListSort: {},
-	defauleMarkIcon: 'icon-mark-1',
-	defaultWayfarerIcon: 'icon-mark-1',
+	defauleMarkIcon: 'icon-cactus-1',
+	defaultWayfarerIcon: 'icon-wayfarer-1',
 	hubConnection: null,
 	svg: null,
 	users: [],
@@ -359,7 +359,14 @@ async function main() {
 	Application.refreshActionListTimer = setTimeout(refreshActionList, 1000 * 5);
 
 	Application.icons['icon-mark-1'] = {
-		offset: { x: -12, y: -24 },
 		data: `<g transform="translate(-12, -24)" class="icon-mark-1"><polygon class="a" points="20 7.75 4 7.75 2 3 22 3 20 7.75"/><polyline class="a" points="2 3 22 3 20 7.75"/><polygon class="a" points="17 14.875 7 14.875 5 10.125 19 10.125 17 14.875"/><polygon class="a" points="14 22 10 22 8 17.25 16 17.25 14 22"/></g>`
+	}
+
+	Application.icons['icon-cactus-1'] = {
+		data: `<g transform="translate(-16, -32) scale(0.5, 0.5)" class="icon-cactus-1"><g data-name="Layer 6" id="Layer_6"><g data-name="Layer 18" id="Layer_18"><path class="cls-1" d="M28.8,7.75h.41a7.67,7.67,0,0,1,7.67,7.67V41.75a0,0,0,0,1,0,0H21.13a0,0,0,0,1,0,0V15.42A7.67,7.67,0,0,1,28.8,7.75Z"/><polygon class="cls-2" points="40.31 56.5 15.7 56.5 12.14 46.94 43.86 46.94 40.31 56.5"/><rect class="cls-3" height="5.38" rx="1.9" ry="1.9" width="38.25" x="8.88" y="41.63"/><line class="cls-4" x1="21.69" x2="17.56" y1="16" y2="12.25"/><line class="cls-4" x1="33.87" x2="38.38" y1="14.93" y2="10.82"/><line class="cls-4" x1="22.86" x2="19.5" y1="27.5" y2="24.92"/><line class="cls-4" x1="21.69" x2="17.56" y1="38" y2="34.25"/><line class="cls-4" x1="36.37" x2="40.5" y1="26.72" y2="22.4"/><circle class="cls-5" cx="27.75" cy="28.5" r="1.75"/><circle class="cls-5" cx="25.75" cy="22.5" r="1.75"/><circle class="cls-5" cx="26.75" cy="12.5" r="1.75"/><circle class="cls-5" cx="32.75" cy="32.5" r="1.75"/><circle class="cls-5" cx="25.75" cy="36.5" r="1.75"/><path class="cls-1" d="M48.42,21h-1A3.37,3.37,0,0,0,44,24.58V30H37v7H48.68A3.34,3.34,0,0,0,52,33.52V24.58A3.46,3.46,0,0,0,48.42,21Z"/><circle class="cls-5" cx="48.32" cy="24.9" r="1.15"/><circle class="cls-5" cx="31.75" cy="18.5" r="1.75"/><circle class="cls-5" cx="47.96" cy="33.97" r="1.15"/><line class="cls-4" x1="51.08" x2="55.12" y1="28.23" y2="26.26"/><line class="cls-4" x1="46.19" x2="42.83" y1="22.75" y2="20.17"/><circle class="cls-5" cx="42.96" cy="32.97" r="1.15"/></g></g></g>`
+	}
+
+	Application.icons['icon-wayfarer-1'] = {
+		data: `<g transform="translate(-16, -32) scale(0.5, 0.5)" class="icon-cactus-1"><g transform="matrix(1,0,0,1,-352,-162.338)"><g id="yacht" transform="matrix(1,0,0,1,18.8303,162.338)"><rect height="64" style="fill:none;" width="64" x="333.17" y="0"/><g transform="matrix(1,0,0,1,269.497,-256)"><path d="M78,278C78,276.895 78.895,276 80,276C84.716,276 96.404,276 100,276C100.669,276 101.293,276.334 101.664,276.891C102.778,278.562 105.07,282 105.07,282L120,282C120.727,282 121.397,282.395 121.749,283.03C122.102,283.666 122.081,284.443 121.696,285.06C118.804,289.688 113.466,298.228 111.696,301.06C111.331,301.645 110.69,302 110,302C104.544,302 80.464,302 72,302C71.336,302 70.716,301.671 70.344,301.121C69.972,300.572 69.897,299.873 70.143,299.257C71.353,296.233 73.247,291.499 74.143,289.257C74.447,288.498 75.182,288 76,288C77.131,288 78.558,288 78.558,288L81.225,280L80,280C78.895,280 78,279.105 78,278L78,278ZM104.472,286L92.472,292L77.354,292L74.954,298L108.892,298L116.392,286L104.472,286ZM101.079,283.224L98.93,280L85.442,280L82.775,288L91.528,288L101.079,283.224Z"/></g></g></g><g>`
 	}
 }

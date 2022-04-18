@@ -7,3 +7,38 @@ svg g.icon-mark-1 .a {
     stroke-width: 1.5px;
     fill-rule: evenodd;
 }
+
+/* cactus-1*/
+svg g.icon-cactus-1 .cls-1 {
+    fill: #22b573;
+}
+
+svg g.icon-cactus-1 .cls-1, .cls-4 {
+    stroke: #004924;
+}
+
+svg g.icon-cactus-1 .cls-1, .cls-2, .cls-3, .cls-4 {
+    stroke-miterlimit: 10;
+    stroke-width: 2px;
+}
+
+svg g.icon-cactus-1 .cls-2 {
+    fill: #8c6239;
+}
+
+svg g.icon-cactus-1 .cls-2, .cls-3 {
+    stroke: #42210b;
+}
+
+svg g.icon-cactus-1 .cls-3 {
+    fill: #c69c6d;
+}
+
+svg g.icon-cactus-1 .cls-4 {
+    fill: none;
+    stroke-linecap: round;
+}
+
+svg g.icon-cactus-1 .cls-5 {
+    fill: #33d186;
+}
