@@ -1,20 +1,28 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.DependencyInjection;
-using MultiplayerMarker.Entities;
-using MultiplayerMarker.Hub;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace MultiplayerMarker.Core
+﻿namespace MultiplayerMarker.Core
 {
+    using Microsoft.AspNetCore.SignalR;
+    using Microsoft.Extensions.DependencyInjection;
+    using MultiplayerMarker.Entities;
+    using MultiplayerMarker.Hub;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Движок игры. Запускает движения Путников по меткам
+    /// TODO: проработать потокобезопасность.
+    /// TODO: разделить по обязанностям, вынести связь с хабом
+    /// </summary>
     public class Engine
     {
         // TODO: параллельная обработка. Куча багов
         private readonly IServiceProvider services;
 
+        /// <summary>
+        /// Скорость движения
+        /// </summary>
         private readonly int speed = 10;
 
         private IHubContext<GameHub> HubContext => this.services.GetService<IHubContext<GameHub>>();
@@ -27,6 +35,12 @@ namespace MultiplayerMarker.Core
         private Dictionary<User, MovementInfo> movementDictionary = new Dictionary<User, MovementInfo>();
 
         // TODO: параллельность
+        /// <summary>
+        /// Обработчик события изменения списка меток
+        /// </summary>
+        /// <param name="changePathType">Тип события</param>
+        /// <param name="user">Пользователь</param>
+        /// <param name="mark">Добавленнаяя/удалённая метка</param>
         public void PathChanged(ChangePathType changePathType, User user, Mark mark)
         {
             if (changePathType == ChangePathType.Added)
@@ -43,7 +57,7 @@ namespace MultiplayerMarker.Core
             }
         }
 
-        public void HandleRemovedAll(User user)
+        private void HandleRemovedAll(User user)
         {
             Mutex mutex = null;
 
@@ -70,7 +84,7 @@ namespace MultiplayerMarker.Core
             mutex?.ReleaseMutex();
         }
 
-        public void HandleRemoveMark(User user)
+        private void HandleRemoveMark(User user)
         {
             Mutex mutex = null;
             if (user.Marks.Count < 2 && user.Wayfarer.InProgress)

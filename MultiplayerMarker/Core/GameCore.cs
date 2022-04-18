@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using MultiplayerMarker.Entities;
-using MultiplayerMarker.Hub;
-using MultiplayerMarker.Utils;
-using System.Collections.Generic;
-using System;
-using System.Linq;
-using MultiplayerMarker.Logger;
-
-namespace MultiplayerMarker.Core
+﻿namespace MultiplayerMarker.Core
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using MultiplayerMarker.Entities;
+    using MultiplayerMarker.Logger;
+    using MultiplayerMarker.Utils;
+
+    /// <summary>
+    /// Содержит информацию обо всех объектах игры: пользователях, метках. Управляет ими, связыает хаб, движок, БдЛоггер
+    /// TODO: проработать потокобезопасность. Разделить по функциям.
+    /// </summary>
     public class GameCore
     {
         private object userLock = new object();
@@ -27,6 +30,12 @@ namespace MultiplayerMarker.Core
             this.logger = logger;
         }
 
+        /// <summary>
+        /// Попытаться добавить пользователя по имени
+        /// </summary>
+        /// <param name="name">Имя пользователя</param>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <returns></returns>
         public TryAddUserActionResult TryAddUser(string name, string userId)
         {
             var result = new TryAddUserActionResult();
@@ -64,6 +73,11 @@ namespace MultiplayerMarker.Core
         }
 
         // TODO: убрать побочные действия - модификацию mark. Обработка ошибок
+        /// <summary>
+        /// Добавить метку
+        /// </summary>
+        /// <param name="mark">Метка</param>
+        /// <param name="userId">Идентификатор пользователя</param>
         public void AddMark(Mark mark, string userId)
         {
             var user = this.GetUser(userId);
@@ -71,12 +85,21 @@ namespace MultiplayerMarker.Core
             user.AddMark(mark);
         }
 
+        /// <summary>
+        /// Удалить метку
+        /// </summary>
+        /// <param name="markId">Идентификатор метки</param>
+        /// <param name="userId">Идентификатор пользователя</param>
         public void RemoveMark(int markId, string userId)
         {
             var user = this.GetUser(userId);
             user.RemoveMark(markId);
         }
 
+        /// <summary>
+        /// Очистка меток
+        /// </summary>
+        /// <param name="userId">Идентификатор пользоватля</param>
         public void ClearMarks(string userId)
         {
             var user = this.GetUser(userId);

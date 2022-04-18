@@ -1,5 +1,8 @@
 ﻿namespace MultiplayerMarker.Utils
 {
+    /// <summary>
+    /// Результат запроса
+    /// </summary>
     public class TryActionResult
     {
         public bool Success { get; set; }

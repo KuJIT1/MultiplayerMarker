@@ -1,22 +1,17 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using MultiplayerMarker.Core;
-using MultiplayerMarker.DbModel;
-using MultiplayerMarker.Hub;
-using MultiplayerMarker.Logger;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace MultiplayerMarker
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
+    using MultiplayerMarker.Core;
+    using MultiplayerMarker.DbModel;
+    using MultiplayerMarker.Hub;
+    using MultiplayerMarker.Logger;
+
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -34,7 +29,7 @@ namespace MultiplayerMarker
             services.AddSingleton<DbUserActionLogger>();
             services.AddSignalR();
 
-            //TODO:проблема с освобождением соединения при неохиднном завершении работы
+            //TODO:проблема с освобождением соединения при неожиданном завершении работы. Изменить жизненный цикл
             services.AddDbContext<ApplicationContext>(options =>
             {
                 options.UseNpgsql(this.configuration.GetConnectionString("DefaultConnection"));
@@ -54,7 +49,6 @@ namespace MultiplayerMarker
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
-
                 endpoints.MapHub<GameHub>("gamehub");
             });
         }

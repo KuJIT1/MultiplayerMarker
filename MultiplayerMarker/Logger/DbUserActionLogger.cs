@@ -1,16 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MultiplayerMarker.DbModel;
-using MultiplayerMarker.Entities;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MultiplayerMarker.Logger
+﻿namespace MultiplayerMarker.Logger
 {
+    using System;
+    using System.Linq;
+
+    using MultiplayerMarker.DbModel;
+    using MultiplayerMarker.Entities;
+
+    /// <summary>
+    /// Класс для записи действий пользователя в БД
+    /// </summary>
     public class DbUserActionLogger
     {
-        private readonly IServiceProvider serviceProvider;
-
+        /// <summary>
+        /// Количество действий, которое храниться в БД
+        /// </summary>
         private readonly int limit = 20;
 
         private object lockObject = new object();
@@ -22,6 +25,13 @@ namespace MultiplayerMarker.Logger
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Обработчик события изменения списка меток пользователя
+        /// TODO: выделить обработку в метод
+        /// </summary>
+        /// <param name="changePathType">Тип события</param>
+        /// <param name="user">Пользователь</param>
+        /// <param name="mark">Добавленная/удалённая метка</param>
         public void PathChanged(ChangePathType changePathType, User user, Mark mark)
         {
             var actionType = this.GetUserActionType(changePathType);
@@ -39,6 +49,7 @@ namespace MultiplayerMarker.Logger
                 DateTime = DateTime.Now
             };
 
+            // т.к. dbContext singleton, кажется, нужна блокировка
             lock (lockObject)
             {
                 this.dbContext.UserActions.Add(userAction);
@@ -53,6 +64,11 @@ namespace MultiplayerMarker.Logger
             }
         }
 
+        /// <summary>
+        /// Конвертер типа события в тип действия для записи в БД
+        /// </summary>
+        /// <param name="changePathType"></param>
+        /// <returns></returns>
         private UserActionType? GetUserActionType(ChangePathType changePathType)
         {
             switch (changePathType)

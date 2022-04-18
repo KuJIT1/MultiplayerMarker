@@ -1,10 +1,8 @@
 ﻿namespace MultiplayerMarker.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using MultiplayerMarker.Core;
     using MultiplayerMarker.DbModel;
     using System.Linq;
-    using System.Text.Json;
 
     public class HomeController: Controller
     {
@@ -21,6 +19,11 @@
             return View();
         }
 
+        /// <summary>
+        /// Получить список пользоавтельских действий.
+        /// TODO: отправлять изменения по мере их наступления
+        /// </summary>
+        /// <returns></returns>
         public IActionResult ActionList()
         {
             return new JsonResult(this.dbContext.UserActions, new System.Text.Json.JsonSerializerOptions() {PropertyNamingPolicy = null});

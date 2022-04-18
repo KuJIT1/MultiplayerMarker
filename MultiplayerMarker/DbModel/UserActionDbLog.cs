@@ -1,7 +1,10 @@
-﻿using System;
-
-namespace MultiplayerMarker.DbModel
+﻿namespace MultiplayerMarker.DbModel
 {
+    using System;
+
+    /// <summary>
+    /// Объект для записи в БД типа пользователя
+    /// </summary>
     public class UserActionDbLog
     {
         public long Id { get; set; }
@@ -17,6 +20,9 @@ namespace MultiplayerMarker.DbModel
         public DateTime DateTime { get; set; }
     }
 
+    /// <summary>
+    /// Тип действия пользователя
+    /// </summary>
     public enum UserActionType
     {
         MarkAdded,

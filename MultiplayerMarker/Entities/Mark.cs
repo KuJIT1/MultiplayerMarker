@@ -1,5 +1,8 @@
 ﻿namespace MultiplayerMarker.Entities
 {
+    /// <summary>
+    /// Объект метки
+    /// </summary>
     public class Mark
     {
         public long Id { get; set; }
